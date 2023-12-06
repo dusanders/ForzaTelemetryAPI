@@ -1,3 +1,7 @@
+FORKED:
+I have added Forza Motorsport logic on branch 'motorsport'.
+Kotlin conversion files can be found on branch 'kotlin'.
+
 # Android ForzaTelemetryAPI
 If you are using the API for an android app, see https://github.com/Ldalvik/ForzaTelemetryAPI/tree/main/android
 
