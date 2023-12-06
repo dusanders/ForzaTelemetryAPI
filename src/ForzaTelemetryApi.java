@@ -7,7 +7,11 @@ import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 
 public class ForzaTelemetryApi {
-    public static final int PACKET_SIZE = 323;
+    private static final String TAG = "ForzaTelemetryApi";
+    public static final int DASH_PACKET_LENGTH = 311; // FM7
+    public static final int FH4_PACKET_LENGTH = 324; // FH4
+    public static final int FM8_PACKET_LENGTH = 331; // FM8
+    private final int packetLength;
     private final boolean isRaceOn;
     private final Long timeStampMS;
     private final Float engineMaxRpm;
@@ -102,17 +106,32 @@ public class ForzaTelemetryApi {
     private final Byte steer;
     private final Byte normalizedDrivingLine;
     private final Byte normalizedAIBrakeDifference;
+    private final Float tireWearFrontLeft;
+    private final Float tireWearFrontRight;
+    private final Float tireWearRearLeft;
+    private final Float tireWearRearRight;
+    private final int trackID;
 
     DecimalFormat df;
 
-    public ForzaTelemetryApi(byte[] bytes) throws Exception {
-        //Check that all 323 bytes were received
-        if (bytes.length < PACKET_SIZE) {
-            try {
-                throw new Exception("Invalid byte length");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    /**
+     * Create API instance. Parses the byte[] into telemetry values.
+     * @param recvdLen Actual byte length from Java DatagramPacket
+     * @param bytes Allocated byte array - length will not be actual received.
+     * @throws Exception Thrown if failed to parse byte array
+     */
+    public ForzaTelemetryApi(int recvdLen, byte[] bytes) throws Exception {
+        packetLength = recvdLen;
+        //Check we got a Forza packet
+        if (!isFHPacket() && !isFM7Packet() && !isFM8Packet()) {
+            Log.e(TAG, "Invalid byte length: " + recvdLen + " allocated: " + bytes.length);
+        }
+        if(isFHPacket()) {
+            Log.d(TAG, "Using Horizon parse...");
+        } else if(isFM7Packet()){
+            Log.d(TAG, "Using FM7 parse...");
+        } else if(isFM8Packet()){
+            Log.d(TAG, "Using FM8 parse...");
         }
         //Set decimal formatting
         df = new DecimalFormat("###.##");
@@ -120,7 +139,6 @@ public class ForzaTelemetryApi {
         //Wrap bytes in a ByteBuffer for faster parsing. The encoding is in Little Endian
         ByteBuffer bb = ByteBuffer.wrap(bytes);
         bb.order(ByteOrder.LITTLE_ENDIAN);
-
         //Set data by going through the bytebuffer
         isRaceOn = getFromBuffer(bb, int.class) == 1;
         timeStampMS = getFromBuffer(bb, long.class);
@@ -180,8 +198,15 @@ public class ForzaTelemetryApi {
         carPerformanceIndex = getFromBuffer(bb, int.class);
         drivetrainType = getFromBuffer(bb, int.class);
         numOfCylinders = getFromBuffer(bb, int.class);
-        carType = getFromBuffer(bb, int.class);
-        objectHit = getFromBuffer(bb);
+        // Only Horizon gets these values
+        if (isFHPacket()) {
+            carType = getFromBuffer(bb, int.class);
+            objectHit = getFromBuffer(bb);
+        } else {
+            // Clear for Motorsport
+            carType = 0;
+            objectHit = 0L;
+        }
         positionX = getFromBuffer(bb, float.class);
         positionY = getFromBuffer(bb, float.class);
         positionZ = getFromBuffer(bb, float.class);
@@ -209,6 +234,23 @@ public class ForzaTelemetryApi {
         steer = getFromBuffer(bb, byte.class);
         normalizedDrivingLine = getFromBuffer(bb, byte.class);
         normalizedAIBrakeDifference = getFromBuffer(bb, byte.class);
+        // Horizon doesn't get these values - only for Motorsport
+        if (isFM8Packet() || isFM7Packet()) {
+            // Set for Motorsport
+            tireWearFrontLeft = getFromBuffer(bb, float.class);
+            tireWearFrontRight = getFromBuffer(bb, float.class);
+            tireWearRearLeft = getFromBuffer(bb, float.class);
+            tireWearRearRight = getFromBuffer(bb, float.class);
+            trackID = getFromBuffer(bb, int.class);
+        } else {
+            // These are not available in Horizon - only FM7/8
+            tireWearFrontLeft = 0F;
+            tireWearFrontRight = 0f;
+            tireWearRearLeft = 0F;
+            tireWearRearRight = 0F;
+            trackID = 0;
+        }
+
     }
 
     //Method to check if selected type length is not overflowing the length of the bytebuffer
@@ -238,6 +280,38 @@ public class ForzaTelemetryApi {
     @SuppressWarnings("unchecked")
     private static <T> T getFromBuffer(ByteBuffer buffer) {
         return (T) (checkBuffer(buffer, 8) ? (Object) buffer.getLong() : 0L);
+    }
+
+    public boolean isFM7Packet() {
+        return packetLength == DASH_PACKET_LENGTH;
+    }
+
+    public boolean isFHPacket() {
+        return packetLength == FH4_PACKET_LENGTH;
+    }
+
+    public boolean isFM8Packet() {
+        return packetLength == FM8_PACKET_LENGTH;
+    }
+
+    public Integer getTireWearFrontLeft() {
+        return Math.round(tireWearFrontLeft * 100);
+    }
+
+    public Integer getTireWearFrontRight() {
+        return Math.round(tireWearFrontRight * 100);
+    }
+
+    public Integer getTireWearRearLeft() {
+        return Math.round(tireWearRearLeft * 100);
+    }
+
+    public Integer getTireWearRearRight() {
+        return Math.round(tireWearRearRight * 100);
+    }
+
+    public Integer getTrackId() {
+        return trackID;
     }
 
     /*
@@ -456,16 +530,31 @@ public class ForzaTelemetryApi {
     }
 
     public String getCarClass() {
-        return switch (carClass) {
-            case 0 -> "D";
-            case 1 -> "C";
-            case 2 -> "B";
-            case 3 -> "A";
-            case 4 -> "S1";
-            case 5 -> "S2";
-            case 6 -> "X";
-            default -> "-";
-        };
+        String result = "-";
+        switch (carClass){
+            case 0:
+                result = "D";
+                break;
+            case 1:
+                result = "C";
+                break;
+            case 2:
+                result = "B";
+                break;
+            case 3:
+                result = "A";
+                break;
+            case 4:
+                result = "S1";
+                break;
+            case 5:
+                result = "S2";
+                break;
+            case 6:
+                result = "X";
+                break;
+        }
+        return result;
     }
 
     public Integer getPerformanceIndex() {
@@ -473,12 +562,19 @@ public class ForzaTelemetryApi {
     }
 
     public String getDrivetrain() {
-        return switch (drivetrainType) {
-            case 0 -> "FWD";
-            case 1 -> "RWD";
-            case 2 -> "AWD";
-            default -> "-";
-        };
+        String result = "-";
+        switch (drivetrainType) {
+            case 0:
+                result = "FWD";
+                break;
+            case 1:
+                result = "RWD";
+                break;
+            case 2:
+                result = "AWD";
+                break;
+        }
+        return result;
     }
 
     public Integer getNumOfCylinders() {
@@ -486,38 +582,97 @@ public class ForzaTelemetryApi {
     }
 
     public String getCarType() {
-        return switch (carType) {
-            case 11 -> "Modern Super Cars";
-            case 12 -> "Retro Super Cars";
-            case 13 -> "Hyper Cars";
-            case 14 -> "Retro Saloons";
-            case 16 -> "Vans & Utility";
-            case 17 -> "Retro Sports Cars";
-            case 18 -> "Modern Sports Cars";
-            case 19 -> "Super Saloons";
-            case 20 -> "Classic Racers";
-            case 21 -> "Cult Cars";
-            case 22 -> "Rare Classics";
-            case 25 -> "Super Hot Hatch";
-            case 29 -> "Rods & Customs";
-            case 30 -> "Retro Muscle";
-            case 31 -> "Modern Muscle";
-            case 32 -> "Retro Rally";
-            case 33 -> "Classic Rally";
-            case 34 -> "Rally Monsters";
-            case 35 -> "Modern Rally";
-            case 36 -> "GT Cars";
-            case 37 -> "Super GT";
-            case 38 -> "Extreme Offroad";
-            case 39 -> "Sports Utility Heroes";
-            case 40 -> "Offroad";
-            case 41 -> "Offroad Buggies";
-            case 42 -> "Classic Sports Cars";
-            case 43 -> "Track Toys";
-            case 44 -> "Vintage Racers";
-            case 45 -> "Trucks";
-            default -> "Unknown (" + carType + ")";
-        };
+        String result = "Unknown (" + carType + ")";
+        switch (carType) {
+            case 11:
+                result = "Modern Super Cars";
+                break;
+            case 12:
+                result = "Retro Super Cars";
+                break;
+            case 13:
+                result = "Hyper Cars";
+                break;
+            case 14:
+                result = "Retro Saloons";
+                break;
+            case 16:
+                result = "Vans & Utility";
+                break;
+            case 17:
+                result = "Retro Sports Cars";
+                break;
+            case 18:
+                result = "Modern Sports Cars";
+                break;
+            case 19:
+                result = "Super Saloons";
+                break;
+            case 20:
+                result = "Classic Racers";
+                break;
+            case 21:
+                result = "Cult Cars";
+                break;
+            case 22:
+                result = "Rare Classics";
+                break;
+            case 25:
+                result = "Super Hot Hatch";
+                break;
+            case 29:
+                result = "Rods & Customs";
+                break;
+            case 30:
+                result = "Retro Muscle";
+                break;
+            case 31:
+                result = "Modern Muscle";
+                break;
+            case 32:
+                result = "Retro Rally";
+                break;
+            case 33:
+                result = "Classic Rally";
+                break;
+            case 34:
+                result = "Rally Monsters";
+                break;
+            case 35:
+                result = "Modern Rally";
+                break;
+            case 36:
+                result = "GT Cars";
+                break;
+            case 37:
+                result = "Super GT";
+                break;
+            case 38:
+                result = "Extreme Offroad";
+                break;
+            case 39:
+                result = "Sports Utility Heroes";
+                break;
+            case 40:
+                result = "Offroad";
+                break;
+            case 41:
+                result = "Offroad Buggies";
+                break;
+            case 42:
+                result = "Classic Sports Cars";
+                break;
+            case 43:
+                result = "Track Toys";
+                break;
+            case 44:
+                result = "Vintage Racers";
+                break;
+            case 45:
+                result = "Trucks";
+                break;
+        }
+        return result;
     }
 
     public Long getObjectHit() {
@@ -630,53 +785,53 @@ public class ForzaTelemetryApi {
     }
 
     public Integer getTireTempFrontLeft(boolean isCelsius) {
-        if(isCelsius) {
+        if (isCelsius) {
             return Math.round(((tireTempFrontLeft - 32) * 5) / 9);
         } else return Math.round(tireTempFrontLeft);
     }
 
     public Integer getTireTempFrontRight(boolean isCelsius) {
-        if(isCelsius) {
-            return Math.round(((tireTempFrontRight - 32) * 5 ) / 9);
+        if (isCelsius) {
+            return Math.round(((tireTempFrontRight - 32) * 5) / 9);
         } else return Math.round(tireTempFrontRight);
     }
 
     public Integer getTireTempRearLeft(boolean isCelsius) {
-        if(isCelsius) {
-            return Math.round(((tireTempRearLeft - 32) * 5 ) / 9);
+        if (isCelsius) {
+            return Math.round(((tireTempRearLeft - 32) * 5) / 9);
         } else return Math.round(tireTempRearLeft);
     }
 
     public Integer getTireTempRearRight(boolean isCelsius) {
-        if(isCelsius) {
+        if (isCelsius) {
             return Math.round(((tireTempRearRight - 32) * 5) / 9);
         } else return Math.round(tireTempRearRight);
     }
 
     public Integer getTireTempAverageFront(boolean isCelsius) {
         float avg = getAverage(getTireTempFrontLeft(), getTireTempFrontRight());
-        if(isCelsius) {
+        if (isCelsius) {
             return Math.round(((avg - 32) * 5) / 9);
         } else return Math.round(avg);
     }
 
     public Integer getTireTempAverageRear(boolean isCelsius) {
         float avg = (getAverage(getTireTempRearLeft(), getTireTempRearRight()));
-        if(isCelsius) {
+        if (isCelsius) {
             return Math.round(((avg - 32) * 5) / 9);
         } else return Math.round(avg);
     }
 
     public Integer getTireTempAverageLeft(boolean isCelsius) {
         float avg = getAverage(getTireTempFrontLeft(), getTireTempRearLeft());
-        if(isCelsius) {
+        if (isCelsius) {
             return Math.round(((avg - 32) * 5) / 9);
         } else return Math.round(avg);
     }
 
     public Integer getTireTempAverageRight(boolean isCelsius) {
         float avg = getAverage(getTireTempFrontRight(), getTireTempRearRight());
-        if(isCelsius) {
+        if (isCelsius) {
             return Math.round(((avg - 32) * 5) / 9);
         } else return Math.round(avg);
     }
@@ -688,9 +843,10 @@ public class ForzaTelemetryApi {
                 getTireTempRearLeft(),
                 getTireTempRearRight()
         );
-        if(isCelsius) {
+        if (isCelsius) {
             return Math.round(((avg - 32) * 5) / 9);
-        } else return Math.round(avg);    }
+        } else return Math.round(avg);
+    }
 
     public Integer getBoost() {
         return Math.round(boost);
@@ -790,7 +946,7 @@ public class ForzaTelemetryApi {
         return (float) Math.sqrt(x * x + y * y + z * z);
     }
 
-    public Long angle(float i){
+    public Long angle(float i) {
         return Math.round(i * 180 / Math.PI);
     }
 

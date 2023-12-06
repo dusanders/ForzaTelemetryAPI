@@ -1,7 +1,10 @@
 package root.forza.telemetry;
 
-public record VehicleData(ForzaTelemetryApi forzaApi) {
-
+public class VehicleData {
+    private ForzaTelemetryApi forzaApi;
+    public VehicleData(ForzaTelemetryApi forzaApi) {
+        this.forzaApi = forzaApi;
+    }
     public String getCarName() {
         return forzaApi.getCarName();
     }
