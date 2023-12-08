@@ -1,4 +1,4 @@
-package root.forza.telemetry;
+package forza.telemetry;
 
 import java.net.*;
 import java.util.Arrays;

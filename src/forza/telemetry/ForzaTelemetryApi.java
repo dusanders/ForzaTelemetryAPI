@@ -1,4 +1,6 @@
-package root.forza.telemetry;
+package forza.telemetry;
+
+import android.util.Log;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

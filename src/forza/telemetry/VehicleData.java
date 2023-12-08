@@ -1,4 +1,4 @@
-package root.forza.telemetry;
+package forza.telemetry;
 
 public class VehicleData {
     private ForzaTelemetryApi forzaApi;
