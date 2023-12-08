@@ -2,6 +2,7 @@ package forza.telemetry;
 
 public class ForzaTelemetryBuilder {
     ForzaInterface listener;
+    Thread connectionThread;
     int port = 5300;
 
     public ForzaTelemetryBuilder(){} //Used for default
@@ -15,6 +16,9 @@ public class ForzaTelemetryBuilder {
     }
 
     public Thread getThread() {
-        return listener.startConnection(port);
+        if(connectionThread == null) {
+            connectionThread = listener.startConnection(port);
+        }
+        return connectionThread;
     }
 }
