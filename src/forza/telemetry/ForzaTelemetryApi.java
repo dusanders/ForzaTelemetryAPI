@@ -253,7 +253,6 @@ public class ForzaTelemetryApi {
             tireWearRearRight = 0F;
             trackID = 0;
         }
-
     }
 
     //Method to check if selected type length is not overflowing the length of the bytebuffer
@@ -924,8 +923,8 @@ public class ForzaTelemetryApi {
        /*
         String[] ordinals = sb.toString().split("\n");
         for (String line : ordinals) {
-            String name = line.trim().split(",")[0];
-            String ordinal = line.trim().split(",")[1];
+            String name = line.trim().split(",\"")[0];
+            String ordinal = line.trim().split(",\"")[1];
             if(Objects.equals(getCarOrdinal(), Integer.valueOf(ordinal))){
                 return name;
             }
@@ -956,97 +955,102 @@ public class ForzaTelemetryApi {
     @Override
     public String toString() {
         return "{" +
-                " isRaceOn='" + getIsRaceOn() + "'" +
-                ", timeStampMS='" + getTimeStampMS() + "'" +
-                ", engineMaxRpm='" + getEngineMaxRpm() + "'" +
-                ", engineIdleRpm='" + getEngineIdleRpm() + "'" +
-                ", currentEngineRpm='" + getCurrentEngineRpm() + "'" +
-                ", accelerationX='" + getAccelerationX() + "'" +
-                ", accelerationY='" + getAccelerationY() + "'" +
-                ", accelerationZ='" + getAccelerationZ() + "'" +
-                ", velocityX='" + getVelocityX() + "'" +
-                ", velocityY='" + getVelocityY() + "'" +
-                ", velocityZ='" + getVelocityZ() + "'" +
-                ", averageVelocityZ='" + getAverageVelocity() + "'" +
-                ", angularVelocityX='" + getAngularVelocityX() + "'" +
-                ", angularVelocityY='" + getAngularVelocityY() + "'" +
-                ", angularVelocityZ='" + getAngularVelocityZ() + "'" +
-                ", yaw='" + getYaw() + "'" +
-                ", pitch='" + getPitch() + "'" +
-                ", roll='" + getRoll() + "'" +
-                ", normalizedSuspensionTravelFrontLeft='" + getNormalizedSuspensionTravelFrontLeft() + "'" +
-                ", normalizedSuspensionTravelFrontRight='" + getNormalizedSuspensionTravelFrontRight() + "'" +
-                ", normalizedSuspensionTravelRearLeft='" + getNormalizedSuspensionTravelRearLeft() + "'" +
-                ", normalizedSuspensionTravelRearRight='" + getNormalizedSuspensionTravelRearRight() + "'" +
-                ", tireSlipRatioFrontLeft='" + getTireSlipRatioFrontLeft() + "'" +
-                ", tireSlipRatioFrontRight='" + getTireSlipRatioFrontRight() + "'" +
-                ", tireSlipRatioRearLeft='" + getTireSlipRatioRearLeft() + "'" +
-                ", tireSlipRatioRearRight='" + getTireSlipRatioRearRight() + "'" +
-                ", wheelRotationSpeedFrontLeft='" + getWheelRotationSpeedFrontLeft() + "'" +
-                ", wheelRotationSpeedFrontRight='" + getWheelRotationSpeedFrontRight() + "'" +
-                ", wheelRotationSpeedRearLeft='" + getWheelRotationSpeedRearLeft() + "'" +
-                ", wheelRotationSpeedRearRight='" + getWheelRotationSpeedRearRight() + "'" +
-                ", wheelOnRumbleStripFrontLeft='" + getWheelOnRumbleStripFrontLeft() + "'" +
-                ", wheelOnRumbleStripFrontRight='" + getWheelOnRumbleStripFrontRight() + "'" +
-                ", wheelOnRumbleStripRearLeft='" + getWheelOnRumbleStripRearLeft() + "'" +
-                ", wheelOnRumbleStripRearRight='" + getWheelOnRumbleStripRearRight() + "'" +
-                ", wheelInPuddleDepthFrontLeft='" + getWheelInPuddleDepthFrontLeft() + "'" +
-                ", wheelInPuddleDepthFrontRight='" + getWheelInPuddleDepthFrontRight() + "'" +
-                ", wheelInPuddleDepthRearLeft='" + getWheelInPuddleDepthRearLeft() + "'" +
-                ", wheelInPuddleDepthRearRight='" + getWheelInPuddleDepthRearRight() + "'" +
-                ", surfaceRumbleFrontLeft='" + getSurfaceRumbleFrontLeft() + "'" +
-                ", surfaceRumbleFrontRight='" + getSurfaceRumbleFrontRight() + "'" +
-                ", surfaceRumbleRearLeft='" + getSurfaceRumbleRearLeft() + "'" +
-                ", surfaceRumbleRearRight='" + getSurfaceRumbleRearRight() + "'" +
-                ", tireSlipAngleFrontLeft='" + getTireSlipAngleFrontLeft() + "'" +
-                ", tireSlipAngleFrontRight='" + getTireSlipAngleFrontRight() + "'" +
-                ", tireSlipAngleRearLeft='" + getTireSlipAngleRearLeft() + "'" +
-                ", tireSlipAngleRearRight='" + getTireSlipAngleRearRight() + "'" +
-                ", tireCombinedSlipFrontLeft='" + getTireCombinedSlipFrontLeft() + "'" +
-                ", tireCombinedSlipFrontRight='" + getTireCombinedSlipFrontRight() + "'" +
-                ", tireCombinedSlipRearLeft='" + getTireCombinedSlipRearLeft() + "'" +
-                ", tireCombinedSlipRearRight='" + getTireCombinedSlipRearRight() + "'" +
-                ", suspensionTravelMetersFrontLeft='" + getSuspensionTravelMetersFrontLeft() + "'" +
-                ", suspensionTravelMetersFrontRight='" + getSuspensionTravelMetersFrontRight() + "'" +
-                ", suspensionTravelMetersRearLeft='" + getSuspensionTravelMetersRearLeft() + "'" +
-                ", suspensionTravelMetersRearRight='" + getSuspensionTravelMetersRearRight() + "'" +
-                ", carClass='" + getCarClass() + "'" +
-                ", carPerformanceIndex='" + getPerformanceIndex() + "'" +
-                ", drivetrainType='" + getDrivetrain() + "'" +
-                ", numCylinders='" + getNumOfCylinders() + "'" +
-                ", carType='" + getCarType() + "'" +
-                ", objectHit1='" + getObjectHit() + "'" +
-                ", carOrdinal='" + getOrdinal() + "'" +
-                ", positionX='" + getPositionX() + "'" +
-                ", positionY='" + getPositionY() + "'" +
-                ", positionZ='" + getPositionZ() + "'" +
-                ", speedMps='" + getSpeedMps() + "'" +
-                ", speedMph='" + getSpeedMph() + "'" +
-                ", speedKph='" + getSpeedKph() + "'" +
-                ", power='" + getPower() + "'" +
-                ", horsepower='" + getHorsePower() + "'" +
-                ", torque='" + getTorque() + "'" +
-                ", tireTempFrontLeft='" + getTireTempFrontLeft() + "'" +
-                ", tireTempFrontRight='" + getTireTempFrontRight() + "'" +
-                ", tireTempRearLeft='" + getTireTempRearLeft() + "'" +
-                ", tireTempRearRight='" + getTireTempRearRight() + "'" +
-                ", boost='" + getBoost() + "'" +
-                ", fuel='" + getFuel() + "'" +
-                ", distanceTraveled='" + getDistanceTraveled() + "'" +
-                ", bestLap='" + getBestLap() + "'" +
-                ", lastLap='" + getLastLap() + "'" +
-                ", currentLap='" + getCurrentLap() + "'" +
-                ", currentRaceTime='" + getCurrentRaceTime() + "'" +
-                ", lapNumber='" + getLapNumber() + "'" +
-                ", racePosition='" + getRacePosition() + "'" +
-                ", accel='" + getThrottle() + "'" +
-                ", brake='" + getBrake() + "'" +
-                ", clutch='" + getClutch() + "'" +
-                ", handbrake='" + getHandbrake() + "'" +
-                ", gear='" + getGear() + "'" +
-                ", steer='" + getSteer() + "'" +
-                ", normalizedDrivingLine='" + getNormalizedDrivingLine() + "'" +
-                ", normalizedAIBrakeDifference='" + getNormalizedAIBrakeDifference() + "'" +
+                " \"isRaceOn\":\"" + getIsRaceOn() + "\"" +
+                ",\"timeStampMS\":\"" + getTimeStampMS() + "\"" + 
+                ",\"engineMaxRpm\":\"" + getEngineMaxRpm() + "\"" + 
+                ",\"engineIdleRpm\":\"" + getEngineIdleRpm() + "\"" + 
+                ",\"currentEngineRpm\":\"" + getCurrentEngineRpm() + "\"" + 
+                ",\"accelerationX\":\"" + getAccelerationX() + "\"" + 
+                ",\"accelerationY\":\"" + getAccelerationY() + "\"" + 
+                ",\"accelerationZ\":\"" + getAccelerationZ() + "\"" + 
+                ",\"velocityX\":\"" + getVelocityX() + "\"" + 
+                ",\"velocityY\":\"" + getVelocityY() + "\"" + 
+                ",\"velocityZ\":\"" + getVelocityZ() + "\"" + 
+                ",\"averageVelocityZ\":\"" + getAverageVelocity() + "\"" + 
+                ",\"angularVelocityX\":\"" + getAngularVelocityX() + "\"" + 
+                ",\"angularVelocityY\":\"" + getAngularVelocityY() + "\"" + 
+                ",\"angularVelocityZ\":\"" + getAngularVelocityZ() + "\"" + 
+                ",\"yaw\":\"" + getYaw() + "\"" + 
+                ",\"pitch\":\"" + getPitch() + "\"" + 
+                ",\"roll\":\"" + getRoll() + "\"" + 
+                ",\"normalizedSuspensionTravelFrontLeft\":\"" + getNormalizedSuspensionTravelFrontLeft() + "\"" + 
+                ",\"normalizedSuspensionTravelFrontRight\":\"" + getNormalizedSuspensionTravelFrontRight() + "\"" + 
+                ",\"normalizedSuspensionTravelRearLeft\":\"" + getNormalizedSuspensionTravelRearLeft() + "\"" + 
+                ",\"normalizedSuspensionTravelRearRight\":\"" + getNormalizedSuspensionTravelRearRight() + "\"" + 
+                ",\"tireSlipRatioFrontLeft\":\"" + getTireSlipRatioFrontLeft() + "\"" + 
+                ",\"tireSlipRatioFrontRight\":\"" + getTireSlipRatioFrontRight() + "\"" + 
+                ",\"tireSlipRatioRearLeft\":\"" + getTireSlipRatioRearLeft() + "\"" + 
+                ",\"tireSlipRatioRearRight\":\"" + getTireSlipRatioRearRight() + "\"" + 
+                ",\"wheelRotationSpeedFrontLeft\":\"" + getWheelRotationSpeedFrontLeft() + "\"" + 
+                ",\"wheelRotationSpeedFrontRight\":\"" + getWheelRotationSpeedFrontRight() + "\"" + 
+                ",\"wheelRotationSpeedRearLeft\":\"" + getWheelRotationSpeedRearLeft() + "\"" + 
+                ",\"wheelRotationSpeedRearRight\":\"" + getWheelRotationSpeedRearRight() + "\"" + 
+                ",\"wheelOnRumbleStripFrontLeft\":\"" + getWheelOnRumbleStripFrontLeft() + "\"" + 
+                ",\"wheelOnRumbleStripFrontRight\":\"" + getWheelOnRumbleStripFrontRight() + "\"" + 
+                ",\"wheelOnRumbleStripRearLeft\":\"" + getWheelOnRumbleStripRearLeft() + "\"" + 
+                ",\"wheelOnRumbleStripRearRight\":\"" + getWheelOnRumbleStripRearRight() + "\"" + 
+                ",\"wheelInPuddleDepthFrontLeft\":\"" + getWheelInPuddleDepthFrontLeft() + "\"" + 
+                ",\"wheelInPuddleDepthFrontRight\":\"" + getWheelInPuddleDepthFrontRight() + "\"" + 
+                ",\"wheelInPuddleDepthRearLeft\":\"" + getWheelInPuddleDepthRearLeft() + "\"" + 
+                ",\"wheelInPuddleDepthRearRight\":\"" + getWheelInPuddleDepthRearRight() + "\"" + 
+                ",\"surfaceRumbleFrontLeft\":\"" + getSurfaceRumbleFrontLeft() + "\"" + 
+                ",\"surfaceRumbleFrontRight\":\"" + getSurfaceRumbleFrontRight() + "\"" + 
+                ",\"surfaceRumbleRearLeft\":\"" + getSurfaceRumbleRearLeft() + "\"" + 
+                ",\"surfaceRumbleRearRight\":\"" + getSurfaceRumbleRearRight() + "\"" + 
+                ",\"tireSlipAngleFrontLeft\":\"" + getTireSlipAngleFrontLeft() + "\"" + 
+                ",\"tireSlipAngleFrontRight\":\"" + getTireSlipAngleFrontRight() + "\"" + 
+                ",\"tireSlipAngleRearLeft\":\"" + getTireSlipAngleRearLeft() + "\"" + 
+                ",\"tireSlipAngleRearRight\":\"" + getTireSlipAngleRearRight() + "\"" + 
+                ",\"tireCombinedSlipFrontLeft\":\"" + getTireCombinedSlipFrontLeft() + "\"" + 
+                ",\"tireCombinedSlipFrontRight\":\"" + getTireCombinedSlipFrontRight() + "\"" + 
+                ",\"tireCombinedSlipRearLeft\":\"" + getTireCombinedSlipRearLeft() + "\"" + 
+                ",\"tireCombinedSlipRearRight\":\"" + getTireCombinedSlipRearRight() + "\"" + 
+                ",\"suspensionTravelMetersFrontLeft\":\"" + getSuspensionTravelMetersFrontLeft() + "\"" + 
+                ",\"suspensionTravelMetersFrontRight\":\"" + getSuspensionTravelMetersFrontRight() + "\"" + 
+                ",\"suspensionTravelMetersRearLeft\":\"" + getSuspensionTravelMetersRearLeft() + "\"" + 
+                ",\"suspensionTravelMetersRearRight\":\"" + getSuspensionTravelMetersRearRight() + "\"" + 
+                ",\"carClass\":\"" + getCarClass() + "\"" + 
+                ",\"carPerformanceIndex\":\"" + getPerformanceIndex() + "\"" + 
+                ",\"drivetrainType\":\"" + getDrivetrain() + "\"" + 
+                ",\"numCylinders\":\"" + getNumOfCylinders() + "\"" + 
+                ",\"carType\":\"" + getCarType() + "\"" + 
+                ",\"objectHit1\":\"" + getObjectHit() + "\"" + 
+                ",\"carOrdinal\":\"" + getOrdinal() + "\"" + 
+                ",\"positionX\":\"" + getPositionX() + "\"" + 
+                ",\"positionY\":\"" + getPositionY() + "\"" + 
+                ",\"positionZ\":\"" + getPositionZ() + "\"" + 
+                ",\"speedMps\":\"" + getSpeedMps() + "\"" + 
+                ",\"speedMph\":\"" + getSpeedMph() + "\"" + 
+                ",\"speedKph\":\"" + getSpeedKph() + "\"" + 
+                ",\"power\":\"" + getPower() + "\"" + 
+                ",\"horsepower\":\"" + getHorsePower() + "\"" + 
+                ",\"torque\":\"" + getTorque() + "\"" + 
+                ",\"tireTempFrontLeft\":\"" + getTireTempFrontLeft() + "\"" + 
+                ",\"tireTempFrontRight\":\"" + getTireTempFrontRight() + "\"" + 
+                ",\"tireTempRearLeft\":\"" + getTireTempRearLeft() + "\"" + 
+                ",\"tireTempRearRight\":\"" + getTireTempRearRight() + "\"" + 
+                ",\"boost\":\"" + getBoost() + "\"" + 
+                ",\"fuel\":\"" + getFuel() + "\"" + 
+                ",\"distanceTraveled\":\"" + getDistanceTraveled() + "\"" + 
+                ",\"bestLap\":\"" + getBestLap() + "\"" + 
+                ",\"lastLap\":\"" + getLastLap() + "\"" + 
+                ",\"currentLap\":\"" + getCurrentLap() + "\"" + 
+                ",\"currentRaceTime\":\"" + getCurrentRaceTime() + "\"" + 
+                ",\"lapNumber\":\"" + getLapNumber() + "\"" + 
+                ",\"racePosition\":\"" + getRacePosition() + "\"" + 
+                ",\"accel\":\"" + getThrottle() + "\"" + 
+                ",\"brake\":\"" + getBrake() + "\"" + 
+                ",\"clutch\":\"" + getClutch() + "\"" + 
+                ",\"handbrake\":\"" + getHandbrake() + "\"" + 
+                ",\"gear\":\"" + getGear() + "\"" + 
+                ",\"steer\":\"" + getSteer() + "\"" + 
+                ",\"normalizedDrivingLine\":\"" + getNormalizedDrivingLine() + "\"" + 
+                ",\"normalizedAIBrakeDifference\":\"" + getNormalizedAIBrakeDifference() + "\"" + 
+                ",\"tireWearFrontLeft\":\"" + getTireWearFrontLeft() + "\"" + 
+                ",\"tireWearFrontRight\":\"" + getTireWearFrontRight() + "\"" + 
+                ",\"tireWearRearLeft\":\"" + getTireWearRearLeft() + "\"" +
+                ",\"tireWearRearRight\":\"" + getTireWearRearRight() + "\"" +
+                ",\"trackID\":\""+getTrackId() + "\"" +
                 "}";
     }
 }
