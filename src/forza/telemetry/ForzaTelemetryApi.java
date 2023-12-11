@@ -7,8 +7,11 @@ import java.math.RoundingMode;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 public class ForzaTelemetryApi {
+    private static boolean DEBUG_DID_PRINT_50 = false;
+    private static boolean DEBUG_DID_PRINT_0 = false;
     private static final String TAG = "ForzaTelemetryApi";
     public static final int DASH_PACKET_LENGTH = 311; // FM7
     public static final int FH4_PACKET_LENGTH = 324; // FH4
@@ -252,6 +255,15 @@ public class ForzaTelemetryApi {
             tireWearRearLeft = 0F;
             tireWearRearRight = 0F;
             trackID = 0;
+        }
+        if(!DEBUG_DID_PRINT_50 && getSpeedKph() == 50) {
+            Log.w(TAG, Arrays.toString(bytes));
+            Log.w(TAG, toString());
+            DEBUG_DID_PRINT_50 = true;
+        } else if(DEBUG_DID_PRINT_50 && !DEBUG_DID_PRINT_0 && getSpeedKph() == 0) {
+            Log.w(TAG, Arrays.toString(bytes));
+            Log.w(TAG, toString());
+            DEBUG_DID_PRINT_0 = true;
         }
     }
 
@@ -547,10 +559,18 @@ public class ForzaTelemetryApi {
                 result = "A";
                 break;
             case 4:
-                result = "S1";
+                if(isFM7Packet()){
+                    result = "S";
+                } else {
+                    result = "S1";
+                }
                 break;
             case 5:
-                result = "S2";
+                if(isFM7Packet()){
+                    result = "R";
+                } else {
+                    result = "S2";
+                }
                 break;
             case 6:
                 result = "X";
