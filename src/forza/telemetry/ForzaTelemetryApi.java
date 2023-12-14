@@ -308,20 +308,20 @@ public class ForzaTelemetryApi {
         return packetLength == FM8_PACKET_LENGTH;
     }
 
-    public Integer getTireWearFrontLeft() {
-        return Math.round(tireWearFrontLeft * 100);
+    public Float getTireWearFrontLeft() {
+        return tireWearFrontLeft * 100;
     }
 
-    public Integer getTireWearFrontRight() {
-        return Math.round(tireWearFrontRight * 100);
+    public Float getTireWearFrontRight() {
+        return tireWearFrontRight * 100;
     }
 
-    public Integer getTireWearRearLeft() {
-        return Math.round(tireWearRearLeft * 100);
+    public Float getTireWearRearLeft() {
+        return tireWearRearLeft * 100;
     }
 
-    public Integer getTireWearRearRight() {
-        return Math.round(tireWearRearRight * 100);
+    public Float getTireWearRearRight() {
+        return tireWearRearRight * 100;
     }
 
     public Integer getTrackId() {
@@ -339,112 +339,112 @@ public class ForzaTelemetryApi {
         return timeStampMS;
     }
 
-    public Integer getEngineMaxRpm() {
-        return Math.round(engineMaxRpm);
+    public Float getEngineMaxRpm() {
+        return engineMaxRpm;
     }
 
-    public Integer getEngineIdleRpm() {
-        return Math.round(engineIdleRpm);
+    public Float getEngineIdleRpm() {
+        return engineIdleRpm;
     }
 
-    public Integer getCurrentEngineRpm() {
-        return Math.round(currentEngineRpm);
+    public Float getCurrentEngineRpm() {
+        return currentEngineRpm;
     }
 
-    public Integer getAccelerationX() {
-        return Math.round(accelerationX * 100);
+    public Float getAccelerationX() {
+        return accelerationX * 100;
     }
 
-    public Integer getAccelerationY() {
-        return Math.round(accelerationY * 100);
+    public Float getAccelerationY() {
+        return accelerationY * 100;
     }
 
-    public Integer getAccelerationZ() {
-        return Math.round(accelerationZ * 100);
+    public Float getAccelerationZ() {
+        return accelerationZ * 100;
     }
 
-    public Integer getVelocityX() {
-        return Math.round(velocityX * 100);
+    public Float getVelocityX() {
+        return velocityX * 100;
     }
 
-    public Integer getVelocityY() {
-        return Math.round(velocityY * 100);
+    public Float getVelocityY() {
+        return (velocityY * 100);
     }
 
-    public Integer getVelocityZ() {
-        return Math.round(velocityZ * 100);
+    public Float getVelocityZ() {
+        return (velocityZ * 100);
     }
 
-    public Integer getAngularVelocityX() {
-        return Math.round(angularVelocityX * 100);
+    public Float getAngularVelocityX() {
+        return (angularVelocityX * 100);
     }
 
-    public Integer getAngularVelocityY() {
-        return Math.round(angularVelocityY * 100);
+    public Float getAngularVelocityY() {
+        return (angularVelocityY * 100);
     }
 
-    public Integer getAngularVelocityZ() {
-        return Math.round(angularVelocityZ * 100);
+    public Float getAngularVelocityZ() {
+        return (angularVelocityZ * 100);
     }
 
-    public Integer getYaw() {
-        return Math.round(yaw * 100);
+    public Float getYaw() {
+        return (yaw * 100);
     }
 
-    public Integer getPitch() {
-        return Math.round(pitch * 100);
+    public Float getPitch() {
+        return (pitch * 100);
     }
 
-    public Integer getRoll() {
-        return Math.round(roll * 100);
+    public Float getRoll() {
+        return (roll * 100);
     }
 
-    public Integer getNormalizedSuspensionTravelFrontLeft() {
-        return Math.round(normalizedSuspensionTravelFrontLeft * 100);
+    public Float getNormalizedSuspensionTravelFrontLeft() {
+        return (normalizedSuspensionTravelFrontLeft * 100);
     }
 
-    public Integer getNormalizedSuspensionTravelFrontRight() {
-        return Math.round(normalizedSuspensionTravelFrontRight * 100);
+    public Float getNormalizedSuspensionTravelFrontRight() {
+        return (normalizedSuspensionTravelFrontRight * 100);
     }
 
-    public Integer getNormalizedSuspensionTravelRearLeft() {
-        return Math.round(normalizedSuspensionTravelRearLeft * 100);
+    public Float getNormalizedSuspensionTravelRearLeft() {
+        return (normalizedSuspensionTravelRearLeft * 100);
     }
 
-    public Integer getNormalizedSuspensionTravelRearRight() {
-        return Math.round(normalizedSuspensionTravelRearRight * 100);
+    public Float getNormalizedSuspensionTravelRearRight() {
+        return (normalizedSuspensionTravelRearRight * 100);
     }
 
-    public Integer getTireSlipRatioFrontLeft() {
-        return Math.round(tireSlipRatioFrontLeft * 100);
+    public Float getTireSlipRatioFrontLeft() {
+        return (tireSlipRatioFrontLeft * 100);
     }
 
-    public Integer getTireSlipRatioFrontRight() {
-        return Math.round(tireSlipRatioFrontRight * 100);
+    public Float getTireSlipRatioFrontRight() {
+        return (tireSlipRatioFrontRight * 100);
     }
 
-    public Integer getTireSlipRatioRearLeft() {
-        return Math.round(tireSlipRatioRearLeft * 100);
+    public Float getTireSlipRatioRearLeft() {
+        return (tireSlipRatioRearLeft * 100);
     }
 
-    public Integer getTireSlipRatioRearRight() {
-        return Math.round(tireSlipRatioRearRight * 100);
+    public Float getTireSlipRatioRearRight() {
+        return (tireSlipRatioRearRight * 100);
     }
 
-    public Integer getWheelRotationSpeedFrontLeft() {
-        return Math.round(wheelRotationSpeedFrontLeft * 100);
+    public Float getWheelRotationSpeedFrontLeft() {
+        return (wheelRotationSpeedFrontLeft * 100);
     }
 
-    public Integer getWheelRotationSpeedFrontRight() {
-        return Math.round(wheelRotationSpeedFrontRight * 100);
+    public Float getWheelRotationSpeedFrontRight() {
+        return (wheelRotationSpeedFrontRight * 100);
     }
 
-    public Integer getWheelRotationSpeedRearLeft() {
-        return Math.round(wheelRotationSpeedRearLeft * 100);
+    public Float getWheelRotationSpeedRearLeft() {
+        return (wheelRotationSpeedRearLeft * 100);
     }
 
-    public Integer getWheelRotationSpeedRearRight() {
-        return Math.round(wheelRotationSpeedRearRight * 100);
+    public Float getWheelRotationSpeedRearRight() {
+        return (wheelRotationSpeedRearRight * 100);
     }
 
     public Integer getWheelOnRumbleStripFrontLeft() {
@@ -511,36 +511,36 @@ public class ForzaTelemetryApi {
         return angle(tireSlipAngleRearRight);
     }
 
-    public Integer getTireCombinedSlipFrontLeft() {
-        return Math.round(tireCombinedSlipFrontLeft * 100);
+    public Float getTireCombinedSlipFrontLeft() {
+        return (tireCombinedSlipFrontLeft * 100);
     }
 
-    public Integer getTireCombinedSlipFrontRight() {
-        return Math.round(tireCombinedSlipFrontRight * 100);
+    public Float getTireCombinedSlipFrontRight() {
+        return (tireCombinedSlipFrontRight * 100);
     }
 
-    public Integer getTireCombinedSlipRearLeft() {
-        return Math.round(tireCombinedSlipRearLeft * 100);
+    public Float getTireCombinedSlipRearLeft() {
+        return (tireCombinedSlipRearLeft * 100);
     }
 
-    public Integer getTireCombinedSlipRearRight() {
-        return Math.round(tireCombinedSlipRearRight * 100);
+    public Float getTireCombinedSlipRearRight() {
+        return (tireCombinedSlipRearRight * 100);
     }
 
-    public Integer getSuspensionTravelMetersFrontLeft() {
-        return Math.round(suspensionTravelMetersFrontLeft * 100);
+    public Float getSuspensionTravelMetersFrontLeft() {
+        return (suspensionTravelMetersFrontLeft * 100);
     }
 
-    public Integer getSuspensionTravelMetersFrontRight() {
-        return Math.round(suspensionTravelMetersFrontRight * 100);
+    public Float getSuspensionTravelMetersFrontRight() {
+        return (suspensionTravelMetersFrontRight * 100);
     }
 
-    public Integer getSuspensionTravelMetersRearLeft() {
-        return Math.round(suspensionTravelMetersRearLeft * 100);
+    public Float getSuspensionTravelMetersRearLeft() {
+        return (suspensionTravelMetersRearLeft * 100);
     }
 
-    public Integer getSuspensionTravelMetersRearRight() {
-        return Math.round(suspensionTravelMetersRearRight * 100);
+    public Float getSuspensionTravelMetersRearRight() {
+        return (suspensionTravelMetersRearRight * 100);
     }
 
     public String getCarClass() {
@@ -729,76 +729,76 @@ public class ForzaTelemetryApi {
         return ordinal;
     }
 
-    public Integer getPositionX() {
-        return Math.round(positionX * 1000);
+    public Float getPositionX() {
+        return (positionX * 1000);
     }
 
-    public Integer getPositionY() {
-        return Math.round(positionY * 1000);
+    public Float getPositionY() {
+        return (positionY * 1000);
     }
 
-    public Integer getPositionZ() {
-        return Math.round(positionZ * 1000);
+    public Float getPositionZ() {
+        return (positionZ * 1000);
     }
 
-    public Integer getSpeedMps() {
-        return Math.round(speed);
+    public Float getSpeedMps() {
+        return (speed);
     }
 
-    public Integer getSpeedKph() {
-        return Math.round(getSpeedMps() * 3.6f);
+    public Float getSpeedKph() {
+        return (getSpeedMps() * 3.6f);
     }
 
-    public Integer getSpeedMph() {
-        return Math.round(getSpeedMps() * 2.23694f);
+    public Float getSpeedMph() {
+        return (getSpeedMps() * 2.23694f);
     }
 
-    public Integer getPower() {
-        return Math.round(power);
+    public Float getPower() {
+        return (power);
     }
 
-    public Integer getHorsePower() {
-        return Math.round(getPower() * 0.00134102f);
+    public Float getHorsePower() {
+        return (getPower() * 0.00134102f);
     }
 
-    public Integer getTorque() {
-        return Math.round(torque);
+    public Float getTorque() {
+        return (torque);
     }
 
-    public Integer getTireTempFrontLeft() {
-        return Math.round(tireTempFrontLeft);
+    public Float getTireTempFrontLeft() {
+        return (tireTempFrontLeft);
     }
 
-    public Integer getTireTempFrontRight() {
-        return Math.round(tireTempFrontRight);
+    public Float getTireTempFrontRight() {
+        return (tireTempFrontRight);
     }
 
-    public Integer getTireTempRearLeft() {
-        return Math.round(tireTempRearLeft);
+    public Float getTireTempRearLeft() {
+        return (tireTempRearLeft);
     }
 
-    public Integer getTireTempRearRight() {
-        return Math.round(tireTempRearRight);
+    public Float getTireTempRearRight() {
+        return (tireTempRearRight);
     }
 
-    public Integer getTireTempAverageFront() {
-        return Math.round(getAverage(getTireTempFrontLeft(), getTireTempFrontRight()));
+    public Float getTireTempAverageFront() {
+        return (getAverage(getTireTempFrontLeft(), getTireTempFrontRight()));
     }
 
-    public Integer getTireTempAverageRear() {
-        return Math.round(getAverage(getTireTempRearLeft(), getTireTempRearRight()));
+    public Float getTireTempAverageRear() {
+        return (getAverage(getTireTempRearLeft(), getTireTempRearRight()));
     }
 
-    public Integer getTireTempAverageLeft() {
-        return Math.round(getAverage(getTireTempFrontLeft(), getTireTempRearLeft()));
+    public Float getTireTempAverageLeft() {
+        return (getAverage(getTireTempFrontLeft(), getTireTempRearLeft()));
     }
 
-    public Integer getTireTempAverageRight() {
-        return Math.round(getAverage(getTireTempFrontRight(), getTireTempRearRight()));
+    public Float getTireTempAverageRight() {
+        return (getAverage(getTireTempFrontRight(), getTireTempRearRight()));
     }
 
-    public Integer getTireTempAverageTotal() {
-        return Math.round(getAverage(
+    public Float getTireTempAverageTotal() {
+        return (getAverage(
                 getTireTempFrontLeft(),
                 getTireTempFrontRight(),
                 getTireTempRearLeft(),
@@ -806,59 +806,59 @@ public class ForzaTelemetryApi {
         ));
     }
 
-    public Integer getTireTempFrontLeft(boolean isCelsius) {
+    public Float getTireTempFrontLeft(boolean isCelsius) {
         if (isCelsius) {
-            return Math.round(((tireTempFrontLeft - 32) * 5) / 9);
-        } else return Math.round(tireTempFrontLeft);
+            return (((tireTempFrontLeft - 32) * 5) / 9);
+        } else return (tireTempFrontLeft);
     }
 
-    public Integer getTireTempFrontRight(boolean isCelsius) {
+    public Float getTireTempFrontRight(boolean isCelsius) {
         if (isCelsius) {
-            return Math.round(((tireTempFrontRight - 32) * 5) / 9);
-        } else return Math.round(tireTempFrontRight);
+            return (((tireTempFrontRight - 32) * 5) / 9);
+        } else return (tireTempFrontRight);
     }
 
-    public Integer getTireTempRearLeft(boolean isCelsius) {
+    public Float getTireTempRearLeft(boolean isCelsius) {
         if (isCelsius) {
-            return Math.round(((tireTempRearLeft - 32) * 5) / 9);
-        } else return Math.round(tireTempRearLeft);
+            return (((tireTempRearLeft - 32) * 5) / 9);
+        } else return (tireTempRearLeft);
     }
 
-    public Integer getTireTempRearRight(boolean isCelsius) {
+    public Float getTireTempRearRight(boolean isCelsius) {
         if (isCelsius) {
-            return Math.round(((tireTempRearRight - 32) * 5) / 9);
-        } else return Math.round(tireTempRearRight);
+            return (((tireTempRearRight - 32) * 5) / 9);
+        } else return (tireTempRearRight);
     }
 
-    public Integer getTireTempAverageFront(boolean isCelsius) {
+    public Float getTireTempAverageFront(boolean isCelsius) {
         float avg = getAverage(getTireTempFrontLeft(), getTireTempFrontRight());
         if (isCelsius) {
-            return Math.round(((avg - 32) * 5) / 9);
-        } else return Math.round(avg);
+            return (((avg - 32) * 5) / 9);
+        } else return (avg);
     }
 
-    public Integer getTireTempAverageRear(boolean isCelsius) {
+    public Float getTireTempAverageRear(boolean isCelsius) {
         float avg = (getAverage(getTireTempRearLeft(), getTireTempRearRight()));
         if (isCelsius) {
-            return Math.round(((avg - 32) * 5) / 9);
-        } else return Math.round(avg);
+            return (((avg - 32) * 5) / 9);
+        } else return (avg);
     }
 
-    public Integer getTireTempAverageLeft(boolean isCelsius) {
+    public Float getTireTempAverageLeft(boolean isCelsius) {
         float avg = getAverage(getTireTempFrontLeft(), getTireTempRearLeft());
         if (isCelsius) {
-            return Math.round(((avg - 32) * 5) / 9);
-        } else return Math.round(avg);
+            return (((avg - 32) * 5) / 9);
+        } else return (avg);
     }
 
-    public Integer getTireTempAverageRight(boolean isCelsius) {
+    public Float getTireTempAverageRight(boolean isCelsius) {
         float avg = getAverage(getTireTempFrontRight(), getTireTempRearRight());
         if (isCelsius) {
-            return Math.round(((avg - 32) * 5) / 9);
-        } else return Math.round(avg);
+            return (((avg - 32) * 5) / 9);
+        } else return (avg);
     }
 
-    public Integer getTireTempAverageTotal(boolean isCelsius) {
+    public Float getTireTempAverageTotal(boolean isCelsius) {
         float avg = getAverage(
                 getTireTempFrontLeft(),
                 getTireTempFrontRight(),
@@ -866,12 +866,12 @@ public class ForzaTelemetryApi {
                 getTireTempRearRight()
         );
         if (isCelsius) {
-            return Math.round(((avg - 32) * 5) / 9);
-        } else return Math.round(avg);
+            return (((avg - 32) * 5) / 9);
+        } else return (avg);
     }
 
-    public Integer getBoost() {
-        return Math.round(boost);
+    public Float getBoost() {
+        return (boost);
     }
 
     public Float getFuel() {
@@ -952,8 +952,8 @@ public class ForzaTelemetryApi {
         return carName;
     }
 
-    public Integer getAverageVelocity() {
-        return Math.round(getVector3DLength(getVelocityX(), getVelocityY(), getVelocityZ()));
+    public Float getAverageVelocity() {
+        return (getVector3DLength(getVelocityX(), getVelocityY(), getVelocityZ()));
     }
 
     private Float getAverage(float valueOne, float valueTwo) {
