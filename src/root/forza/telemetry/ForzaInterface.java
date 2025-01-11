@@ -12,7 +12,7 @@ public interface ForzaInterface {
                      try {
                          datagramSocket = new DatagramSocket(port);
                          //Only 323 bytes are received from the Forza UDP stream
-                         byte[] receive = new byte[323];
+                         byte[] receive = new byte[ForzaTelemetryApi.FM8_PACKET_LENGTH];
                          DatagramPacket datagramPacket = new DatagramPacket(receive, receive.length);
                          int lastOrdinal = 0;
                          boolean isPaused = false, isConnected = false;
