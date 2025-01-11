@@ -131,14 +131,6 @@ public class ForzaTelemetryApi {
         if (!isFHPacket() && !isFM7Packet() && !isFM8Packet()) {
             Log.e(TAG, "Invalid byte length: " + recvdLen + " allocated: " + bytes.length);
         }
-        // DEBUG OUTPUT
-//        if(isFHPacket()) {
-//            Log.d(TAG, "Using Horizon parse...");
-//        } else if(isFM7Packet()){
-//            Log.d(TAG, "Using FM7 parse...");
-//        } else if(isFM8Packet()){
-//            Log.d(TAG, "Using FM8 parse...");
-//        }
         //Set decimal formatting
         df = new DecimalFormat("###.##");
         df.setRoundingMode(RoundingMode.DOWN);
