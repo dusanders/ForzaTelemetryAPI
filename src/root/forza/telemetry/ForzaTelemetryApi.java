@@ -227,9 +227,9 @@ public class ForzaTelemetryApi {
         steer = getFromBuffer(bb, byte.class);
         normalizedDrivingLine = getFromBuffer(bb, byte.class);
         normalizedAIBrakeDifference = getFromBuffer(bb, byte.class);
-        // Horizon doesn't get these values - only for Motorsport
-        if (isFM8Packet() || isFM7Packet()) {
-            // Set for Motorsport
+        // Horizon / FM7 doesn't get these values - only for FM8
+        if (isFM8Packet()) {
+            // Set for FM8
             tireWearFrontLeft = getFromBuffer(bb, float.class);
             tireWearFrontRight = getFromBuffer(bb, float.class);
             tireWearRearLeft = getFromBuffer(bb, float.class);
